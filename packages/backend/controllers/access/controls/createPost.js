@@ -10,6 +10,7 @@ const jwt = jsonwebtoken;
 
 const createPost = async (req, res) => {
 	try {
+		console.log(JSON.stringify(req.signedCookies));
 		const token = req.signedCookies["advanced-state-management-user"];
 		const user = jwt.verify(token, config.TOKEN);
 		const authorUserName = user.username ?? null;
@@ -46,6 +47,7 @@ const createPost = async (req, res) => {
 			ok: true,
 		});
 	} catch (err) {
+		console.log(err)
 		return res.status(503).json({
 			error: "Internal server error",
 			message: err,
